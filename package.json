@@ -5,11 +5,10 @@
   "author": "",
   "license": "MIT",
   "workspaces": [
-    "client",
     "server"
   ],
   "scripts": {
-    "start": "lerna run start"
+    "dev": "lerna run start"
   },
   "devDependencies": {
     "lerna": "~8.2.1"
