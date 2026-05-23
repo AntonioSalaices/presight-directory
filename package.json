@@ -5,7 +5,8 @@
   "author": "Antonio Salaices Monzon",
   "license": "MIT",
   "workspaces": [
-    "server"
+    "server",
+    "client"
   ],
   "scripts": {
     "dev": "lerna run start"
