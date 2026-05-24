@@ -4,6 +4,7 @@
   "repository": "",
   "author": "Antonio Salaices Monzon",
   "license": "MIT",
+  "private": true,
   "workspaces": [
     "server",
     "client"
