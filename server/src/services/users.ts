@@ -18,6 +18,8 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
     limit = 20,
   } = query;
 
+  const hasHobbies = hobbies.length > 0;
+
   const offset = (page - 1) * limit;
   const conditions: string[] = [];
   const params: unknown[] = [];
@@ -25,6 +27,16 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
   if (search) {
     conditions.push(`(u.first_name LIKE ? OR u.last_name LIKE ?)`);
     params.push(`%${search}%`, `%${search}%`);
+  }
+
+  if (hasHobbies) {
+    hobbies.forEach((hobby) => {
+      conditions.push(`EXISTS(
+        SELECT 1 FROM user_hobbies uh
+        WHERE uh.user_id = u.id AND uh.hobby = ?
+        )`);
+      params.push(hobby);
+    });
   }
 
   const where =
@@ -59,6 +71,20 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
     )
     .get([...params]) as { total: number };
 
+  const topHobbies = db
+    .prepare(
+      ` 
+        SELECT uh.hobby as value, COUNT(*) as count
+        FROM user_hobbies uh
+        JOIN users u ON u.id = uh.user_id
+        ${where}
+        GROUP BY uh.hobby
+        ORDER BY count DESC
+        LIMIT 20
+      `,
+    )
+    .all([...params]) as { value: string; count: number }[];
+
   return {
     data: users.map((u) => ({
       ...u,
@@ -66,7 +92,7 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
     })),
     total,
     hasMore: offset + limit < total,
-    hobbies: [],
+    hobbies: topHobbies,
     nationalities: [],
   };
 }
