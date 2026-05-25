@@ -16,6 +16,9 @@ COPY . .
 WORKDIR /app/server
 RUN yarn build
 
+COPY server/entrypoint.sh ./entrypoint.sh
+RUN chmod +x entrypoint.sh
+
 EXPOSE 3000
 
-CMD ["node", "dist/index.js"]
+CMD ["./entrypoint.sh"]
