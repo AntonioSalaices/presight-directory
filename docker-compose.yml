@@ -9,7 +9,7 @@ services:
       - NODE_ENV=production
       - PORT=3000
     volumes:
-      - sqlite_data:/app/server
+      - ./server/presight.db:/app/server/presight.db
 
   client:
     build:
@@ -19,6 +19,3 @@ services:
       - "80:80"
     depends_on:
       - server
-
-volumes:
-  sqlite_data:
