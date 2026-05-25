@@ -1,5 +1,6 @@
 import db from "../db/database";
 import { ESortDir, EUserFields } from "../enums/filters.enum";
+import { IFilterOption } from "../interfaces/filters.interface";
 import {
   IUser,
   IUsersQuery,
@@ -91,7 +92,7 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
         LIMIT 20
       `,
     )
-    .all([...params]) as { value: string; count: number }[];
+    .all([...params]) as IFilterOption[];
 
   const topNationalities = db
     .prepare(
@@ -104,7 +105,7 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
       LIMIT 20
     `,
     )
-    .all(...params) as { value: string; count: number }[];
+    .all(...params) as IFilterOption[];
 
   return {
     data: users.map((u) => ({
