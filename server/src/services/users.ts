@@ -5,6 +5,7 @@ import {
   IUsersQuery,
   IUsersResponse,
 } from "../interfaces/users.interface";
+import { sanitizeSortDir, sanitizeSortField } from "../utils/query-validators";
 
 export function getUsers(query: IUsersQuery): IUsersResponse {
   const {
@@ -28,19 +29,23 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
 
   const where =
     conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
-  const orderBy = `ORDER BY u.${sortBy} ${sortDir}, u.id ${ESortDir.ASC}`;
+
+  const safeSortBy = sanitizeSortField(sortBy);
+  const safeSortDir = sanitizeSortDir(sortDir);
+
+  const orderBy = `ORDER BY u.${safeSortBy} ${safeSortDir}, u.id ${ESortDir.ASC}`;
 
   const users = db
     .prepare(
       `
-    SELECT u.*, GROUP_CONCAT(uh.hobby) as hobbies
-    FROM users u
-    LEFT JOIN user_hobbies uh ON uh.user_id = u.id
-    ${where}
-    GROUP BY u.id
-    ${orderBy}
-    LIMIT ? OFFSET ?
-  `,
+        SELECT u.*, GROUP_CONCAT(uh.hobby) as hobbies
+        FROM users u
+        LEFT JOIN user_hobbies uh ON uh.user_id = u.id
+        ${where}
+        GROUP BY u.id
+        ${orderBy}
+        LIMIT ? OFFSET ?
+      `,
     )
     .all([...params, limit, offset]) as any[];
 
