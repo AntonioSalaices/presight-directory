@@ -19,6 +19,7 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
   } = query;
 
   const hasHobbies = hobbies.length > 0;
+  const hasNationalities = nationalities.length > 0;
 
   const offset = (page - 1) * limit;
   const conditions: string[] = [];
@@ -37,6 +38,13 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
         )`);
       params.push(hobby);
     });
+  }
+
+  if (hasNationalities) {
+    conditions.push(
+      `u.nationality IN (${nationalities.map(() => "?").join(",")})`,
+    );
+    params.push(...nationalities);
   }
 
   const where =
@@ -85,6 +93,19 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
     )
     .all([...params]) as { value: string; count: number }[];
 
+  const topNationalities = db
+    .prepare(
+      `
+      SELECT u.nationality as value, COUNT(*) as count
+      FROM users u
+      ${where}
+      GROUP BY u.nationality
+      ORDER BY count DESC
+      LIMIT 20
+    `,
+    )
+    .all(...params) as { value: string; count: number }[];
+
   return {
     data: users.map((u) => ({
       ...u,
@@ -93,6 +114,6 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
     total,
     hasMore: offset + limit < total,
     hobbies: topHobbies,
-    nationalities: [],
+    nationalities: topNationalities,
   };
 }
