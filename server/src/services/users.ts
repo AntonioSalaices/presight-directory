@@ -5,12 +5,12 @@ import {
   ITotal,
   IUserRequest,
   IUsersQuery,
+  IUsersQueryParsed,
   IUsersResponse,
 } from "../interfaces/users.interface";
 import { sanitizeSortDir, sanitizeSortField } from "../utils/query-validators";
 
-// TODO Add proper interface
-export const getUsers = (query: IUsersQuery): IUsersResponse => {
+export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
   const {
     search = "",
     nationalities = [],

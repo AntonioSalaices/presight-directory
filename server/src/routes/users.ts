@@ -2,16 +2,17 @@ import { Router, Request, Response } from "express";
 
 import { getUsers } from "../services/users";
 import { toStringArray } from "../utils/utils";
-import { IUsersQuery } from "../interfaces/users.interface";
+import { IUsersQuery, IUsersQueryParsed } from "../interfaces/users.interface";
 
 const router = Router();
 
 router.get("/", (req: Request<{}, {}, {}, IUsersQuery>, res: Response) => {
   try {
+    console.log("req", req.query);
     const result = getUsers({
       search: req.query.search,
-      nationalities: toStringArray(req.query.nationalities),
-      hobbies: toStringArray(req.query.hobbies),
+      nationalities: toStringArray(req.query.nationality),
+      hobbies: toStringArray(req.query.hobby),
       sortBy: req.query.sortBy,
       sortDir: req.query.sortDir,
       page: Number(req.query.page) || 1,

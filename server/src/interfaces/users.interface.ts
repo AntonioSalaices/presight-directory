@@ -26,14 +26,22 @@ export interface IUsersResponse {
   nationalities: IFilterOption[];
 }
 
-export interface IUsersQuery {
+export interface IUsersQueryBase {
   search?: string;
-  nationalities?: string[];
-  hobbies?: string[];
   sortBy?: EUserFields;
   sortDir?: ESortDir;
   page?: number;
   limit?: number;
+}
+
+export interface IUsersQueryParsed extends IUsersQueryBase {
+  nationalities?: string[];
+  hobbies?: string[];
+}
+
+export interface IUsersQuery extends IUsersQueryBase {
+  nationality?: string;
+  hobby?: string;
 }
 
 export interface ITotal {
