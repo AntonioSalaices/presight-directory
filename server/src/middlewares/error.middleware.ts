@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../errors/app.error";
-import { EErrorCode } from "../enums/errores.enum";
+import { EErrorCode } from "../enums/errors.enum";
 
-export function errorMiddleware(
+export const errorMiddleware = (
   error: Error,
   _request: Request,
   response: Response,
   _next: NextFunction,
-): void {
+): void => {
   if (error instanceof AppError) {
     response.status(error.statusCode).json({
       error: {
@@ -27,4 +27,4 @@ export function errorMiddleware(
       code: EErrorCode.INTERNAL_ERROR,
     },
   });
-}
+};

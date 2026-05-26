@@ -1,4 +1,4 @@
-import { EErrorCode, EErrorMessage, EStatusCode } from "../enums/errores.enum";
+import { EErrorCode, EErrorMessage, EStatusCode } from "../enums/errors.enum";
 
 export class AppError extends Error {
   constructor(

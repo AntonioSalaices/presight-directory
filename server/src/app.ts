@@ -4,6 +4,7 @@ import cors from "cors";
 import "./db/database";
 import usersRouter from "./routes/users";
 import { errorMiddleware } from "./middlewares/error.middleware";
+import { rateLimitMiddleware } from "./middlewares/rate-limit.middleware";
 
 const app = express();
 
@@ -14,9 +15,8 @@ app.use(
   }),
 );
 app.use(express.json());
-
+app.use(rateLimitMiddleware);
 app.use("/api/users", usersRouter);
-
 app.use(errorMiddleware);
 
 export default app;
