@@ -8,6 +8,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - CLIENT_URL=http://localhost:80
     volumes:
       - ./server/presight.db:/app/server/presight.db
 
