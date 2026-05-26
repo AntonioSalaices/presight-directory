@@ -14,14 +14,13 @@ router.get("/", (req: Request<{}, {}, {}, IUsersQuery>, res: Response) => {
       hobbies: toStringArray(req.query.hobbies),
       sortBy: req.query.sortBy,
       sortDir: req.query.sortDir,
-      page: Number(req.query.page),
-      limit: Number(req.query.limit),
+      page: Number(req.query.page) || 1,
+      limit: Number(req.query.limit) || 20,
     });
 
     res.json(result);
   } catch (error) {
-    console.log("error", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error });
   }
 });
 

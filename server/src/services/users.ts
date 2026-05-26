@@ -107,7 +107,7 @@ export const getUsers = (query: IUsersQuery): IUsersResponse => {
       LIMIT 20
     `,
     )
-    .all(...params) as IFilterOption[];
+    .all([...params]) as IFilterOption[];
 
   return {
     data: users.map((u) => ({
