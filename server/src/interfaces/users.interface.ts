@@ -1,14 +1,21 @@
 import { ESortDir, EUserFields } from "../enums/filters.enum";
 import { IFilterOption } from "./filters.interface";
 
-export interface IUser {
+interface IUserBase {
   id: number;
   avatar: string;
   first_name: string;
   last_name: string;
   age: number;
   nationality: string;
+}
+export interface IUser extends IUserBase {
   hobbies: string[];
+}
+
+// comes from query/url
+export interface IUserRequest extends IUserBase {
+  hobbies: string;
 }
 
 export interface IUsersResponse {
@@ -27,4 +34,8 @@ export interface IUsersQuery {
   sortDir?: ESortDir;
   page?: number;
   limit?: number;
+}
+
+export interface ITotal {
+  total: number;
 }

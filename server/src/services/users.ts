@@ -2,13 +2,15 @@ import db from "../db/database";
 import { ESortDir, EUserFields } from "../enums/filters.enum";
 import { IFilterOption } from "../interfaces/filters.interface";
 import {
-  IUser,
+  ITotal,
+  IUserRequest,
   IUsersQuery,
   IUsersResponse,
 } from "../interfaces/users.interface";
 import { sanitizeSortDir, sanitizeSortField } from "../utils/query-validators";
 
-export function getUsers(query: IUsersQuery): IUsersResponse {
+// TODO Add proper interface
+export const getUsers = (query: IUsersQuery): IUsersResponse => {
   const {
     search = "",
     nationalities = [],
@@ -68,7 +70,7 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
         LIMIT ? OFFSET ?
       `,
     )
-    .all([...params, limit, offset]) as any[];
+    .all([...params, limit, offset]) as IUserRequest[];
 
   const { total } = db
     .prepare(
@@ -78,7 +80,7 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
       ${where}
     `,
     )
-    .get([...params]) as { total: number };
+    .get([...params]) as ITotal;
 
   const topHobbies = db
     .prepare(
@@ -117,4 +119,4 @@ export function getUsers(query: IUsersQuery): IUsersResponse {
     hobbies: topHobbies,
     nationalities: topNationalities,
   };
-}
+};
