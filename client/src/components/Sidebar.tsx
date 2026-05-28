@@ -31,8 +31,8 @@ const Sidebar = () => {
                     : "text-text-muted"
                 }`}
               >
-                <span>{value}</span>
-                <span className="text-text-subtle">{count}</span>
+                <span className="capitalize">{value}</span>
+                <span className="text-text-muted">{count}</span>
               </button>
             </li>
           ))}
@@ -54,8 +54,8 @@ const Sidebar = () => {
                     : "text-text-muted"
                 }`}
               >
-                <span>{value}</span>
-                <span className="text-text-subtle">{count}</span>
+                <span className="capitalize">{value}</span>
+                <span className="text-text-muted">{count}</span>
               </button>
             </li>
           ))}
