@@ -35,7 +35,16 @@ const UserCard = ({ user }: IUserCardProps) => {
               </span>
             ))}
             {remainingHobbies > 0 && (
-              <span className="text-xs text-primary">+{remainingHobbies}</span>
+              <div className="relative group">
+                <span className="text-xs text-primary cursor-default">
+                  +{remainingHobbies}
+                </span>
+                <div className="absolute bottom-full left-0 mb-1 hidden group-hover:block z-10">
+                  <div className="bg-surface-card border border-border rounded px-2 py-1 text-xs text-text-muted whitespace-nowrap shadow-lg">
+                    {user.hobbies.slice(2).join(", ")}
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         )}
