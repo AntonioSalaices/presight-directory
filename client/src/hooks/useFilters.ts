@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 
 import { IFilters } from "../interfaces/users.interface";
+import { ESortDir } from "../enums/filters.enum";
 
 export const useFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +11,7 @@ export const useFilters = () => {
     nationalities: searchParams.getAll("nationality"),
     hobbies: searchParams.getAll("hobby"),
     sortBy: searchParams.get("sortBy") ?? "first_name",
-    sortDir: searchParams.get("sortDir") ?? "asc",
+    sortDir: searchParams.get("sortDir") ?? ESortDir.ASC,
   };
 
   const resetFilters = () => {
