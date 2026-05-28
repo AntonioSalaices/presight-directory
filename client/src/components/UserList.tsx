@@ -5,6 +5,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useUsers } from "../hooks/useUsers";
 import { useFilters } from "../hooks/useFilters";
 import UserCard from "./UserCard";
+import UserCardSkeleton from "./UserCardSkeleton";
 
 export default function UserList() {
   const { filters } = useFilters();
@@ -45,16 +46,28 @@ export default function UserList() {
     isLoading,
   ]);
 
-  if (isLoading)
-    return <div className="p-8 text-center text-text-muted">Loading...</div>;
-  if (isError)
+  if (isLoading) {
+    return (
+      <div className="overflow-auto h-full">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <UserCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+
+  if (isError) {
     return (
       <div className="p-8 text-center text-red-400">Error loading users</div>
     );
-  if (!users.length)
+  }
+
+  if (!users.length) {
     return (
       <div className="p-8 text-center text-text-muted">No users found</div>
     );
+  }
+
   return (
     <div ref={parentRef} className="overflow-auto h-full">
       <div
@@ -76,11 +89,18 @@ export default function UserList() {
                 transform: `translateY(${virtualItem.start}px)`,
               }}
             >
-              {user ? <UserCard user={user} /> : <div>Loading...</div>}
+              {user ? <UserCard user={user} /> : <UserCardSkeleton />}
             </div>
           );
         })}
       </div>
+
+      {isFetchingNextPage && (
+        <div>
+          <UserCardSkeleton />
+          <UserCardSkeleton />
+        </div>
+      )}
     </div>
   );
 }
