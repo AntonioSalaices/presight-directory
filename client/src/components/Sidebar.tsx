@@ -1,5 +1,6 @@
 import { useUsers } from "../hooks/useUsers";
 import { useFilters } from "../hooks/useFilters";
+import logo from "../assets/presight-logo.svg";
 
 export default function Sidebar() {
   const { filters, toggleNationality, toggleHobby } = useFilters();
@@ -10,6 +11,10 @@ export default function Sidebar() {
 
   return (
     <aside className="w-64 h-screen overflow-y-auto border-r  p-4 flex flex-col gap-6 bg-surface-card">
+      <div className="py-2 flex justify-center">
+        <img src={logo} alt="Presight" className="h-8 w-auto" />
+      </div>
+
       <section>
         <h3 className="font-semibold text-primary text-sm uppercase tracking-wide mb-2">
           Nationality
