@@ -17,7 +17,7 @@ export default function SortControls() {
       <select
         value={filters.sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-        className="text-sm bg-surface border border-border rounded px-2 py-1 text-text focus:outline-none focus:ring-2 focus:ring-primary"
+        className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-text focus:outline-none focus:ring-2 focus:ring-primary"
       >
         {SORT_FIELDS.map(({ label, value }) => (
           <option key={value} value={value}>
@@ -28,7 +28,7 @@ export default function SortControls() {
 
       <button
         onClick={() => setSortDir(filters.sortDir === "asc" ? "desc" : "asc")}
-        className="text-sm bg-surface border border-border rounded px-2 py-1 text-text hover:bg-surface-muted transition-colors"
+        className="text-sm rounded-lg  bg-surface border border-border rounded px-2 py-1 text-text hover:bg-surface-muted transition-colors"
       >
         {filters.sortDir === "asc" ? "↑ Asc" : "↓ Desc"}
       </button>

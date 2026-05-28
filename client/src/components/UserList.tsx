@@ -39,10 +39,16 @@ export default function UserList() {
     }
   }, [virtualizer.getVirtualItems(), hasNextPage, isFetchingNextPage]);
 
-  if (isLoading) return <div className="p-4">Loading...</div>;
-  if (isError) return <div className="p-4">Error loading users</div>;
-  if (!users.length) return <div className="p-4">No users found</div>;
-
+  if (isLoading)
+    return <div className="p-8 text-center text-text-muted">Loading...</div>;
+  if (isError)
+    return (
+      <div className="p-8 text-center text-red-400">Error loading users</div>
+    );
+  if (!users.length)
+    return (
+      <div className="p-8 text-center text-text-muted">No users found</div>
+    );
   return (
     <div ref={parentRef} className="overflow-auto h-full">
       <div
@@ -61,7 +67,7 @@ export default function UserList() {
                 top: 0,
                 left: 0,
                 width: "100%",
-                transform: `translateY(${virtualItem.start})`,
+                transform: `translateY(${virtualItem.start}px)`,
               }}
             >
               {user ? <UserCard user={user} /> : <div>Loading...</div>}
