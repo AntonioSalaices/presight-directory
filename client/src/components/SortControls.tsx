@@ -1,4 +1,5 @@
 import { SORT_FIELDS } from "../constants/filters.constants";
+import { ESortDir } from "../enums/filters.enum";
 import { useFilters } from "../hooks/useFilters";
 
 const SortControls = () => {
@@ -21,9 +22,9 @@ const SortControls = () => {
 
       <button
         onClick={() => setSortDir(filters.sortDir === "asc" ? "desc" : "asc")}
-        className="text-sm rounded-lg  bg-surface border border-border rounded px-2 py-1 text-text hover:bg-surface-muted transition-colors"
+        className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-text hover:bg-surface-muted transition-colors"
       >
-        {filters.sortDir === "asc" ? "↑ Asc" : "↓ Desc"}
+        {filters.sortDir === ESortDir.ASC ? "↑ Asc" : "↓ Desc"}
       </button>
     </div>
   );
