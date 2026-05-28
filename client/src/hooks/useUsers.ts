@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { fetchUsers } from "../api/users";
 import { IFilters } from "../interfaces/users.interface";
 
@@ -20,5 +20,6 @@ export const useUsers = (filters: IFilters) => {
     getNextPageParam: (lastPage, allPages) =>
       lastPage.hasMore ? allPages.length + 1 : undefined,
     initialPageParam: 1,
+    placeholderData: keepPreviousData,
   });
 };
