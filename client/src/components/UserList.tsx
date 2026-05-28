@@ -33,11 +33,17 @@ export default function UserList() {
     if (
       lastItem.index >= users.length - 1 &&
       hasNextPage &&
-      !isFetchingNextPage
+      !isFetchingNextPage &&
+      !isLoading
     ) {
       fetchNextPage();
     }
-  }, [virtualizer.getVirtualItems(), hasNextPage, isFetchingNextPage]);
+  }, [
+    virtualizer.getVirtualItems(),
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  ]);
 
   if (isLoading)
     return <div className="p-8 text-center text-text-muted">Loading...</div>;
