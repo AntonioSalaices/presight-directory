@@ -1,13 +1,14 @@
 import { useUsers } from "../hooks/useUsers";
 import { useFilters } from "../hooks/useFilters";
+import { sortByValue } from "../utils/sort.utils";
 import logo from "../assets/presight-logo.svg";
 
-export default function Sidebar() {
+const Sidebar = () => {
   const { filters, toggleNationality, toggleHobby } = useFilters();
   const { data } = useUsers(filters);
 
-  const hobbies = data?.pages[0]?.hobbies ?? [];
-  const nationalities = data?.pages[0]?.nationalities ?? [];
+  const hobbies = (data?.pages[0]?.hobbies ?? []).sort(sortByValue);
+  const nationalities = (data?.pages[0]?.nationalities ?? []).sort(sortByValue);
 
   return (
     <aside className="w-64 h-screen overflow-y-auto border-r  p-4 flex flex-col gap-6 bg-surface-card">
@@ -62,4 +63,5 @@ export default function Sidebar() {
       </section>
     </aside>
   );
-}
+};
+export default Sidebar;

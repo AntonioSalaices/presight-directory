@@ -4,3 +4,5 @@ export const SORT_FIELDS = [
   { label: "Age", value: "age" },
   { label: "Nationality", value: "nationality" },
 ];
+
+export const DEBOUNCE_MS = 300;

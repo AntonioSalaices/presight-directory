@@ -1,7 +1,7 @@
 import { SORT_FIELDS } from "../constants/filters.constants";
 import { useFilters } from "../hooks/useFilters";
 
-export default function SortControls() {
+const SortControls = () => {
   const { filters, setSortBy, setSortDir } = useFilters();
 
   return (
@@ -27,4 +27,5 @@ export default function SortControls() {
       </button>
     </div>
   );
-}
+};
+export default SortControls;

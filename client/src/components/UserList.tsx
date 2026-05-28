@@ -7,7 +7,7 @@ import { useFilters } from "../hooks/useFilters";
 import UserCard from "./UserCard";
 import UserCardSkeleton from "./UserCardSkeleton";
 
-export default function UserList() {
+const UserList = () => {
   const { filters } = useFilters();
   const {
     data,
@@ -103,4 +103,5 @@ export default function UserList() {
       )}
     </div>
   );
-}
+};
+export default UserList;

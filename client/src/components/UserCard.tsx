@@ -2,8 +2,7 @@ import { IUser } from "../interfaces/users.interface";
 interface IUserCardProps {
   user: IUser;
 }
-
-export default function UserCard({ user }: IUserCardProps) {
+const UserCard = ({ user }: IUserCardProps) => {
   const visibleHobbies = user.hobbies.slice(0, 2);
   const remainingHobbies = user.hobbies.length - visibleHobbies.length;
 
@@ -43,4 +42,5 @@ export default function UserCard({ user }: IUserCardProps) {
       </div>
     </div>
   );
-}
+};
+export default UserCard;
