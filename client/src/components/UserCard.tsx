@@ -22,8 +22,9 @@ export default function UserCard({ user }: IUserCardProps) {
             {user.first_name} {user.last_name}
           </span>
         </div>
-        <div className="flex items-center justify-between text-sm text-text-muted">
+        <div className="flex items-center gap-2 text-sm text-text-muted">
           <span>{user.nationality}</span>
+          <span>·</span>
           <span>{user.age}</span>
         </div>
         {user.hobbies.length > 0 && (
@@ -31,7 +32,7 @@ export default function UserCard({ user }: IUserCardProps) {
             {visibleHobbies.map((hobby) => (
               <span
                 key={hobby}
-                className="text-xs bg-surface-muted text-text-muted px-2 py-0.5 rounded-full"
+                className="text-xs bg-surface px-2 py-0.5 rounded-full text-text-muted border border-border"
               >
                 {hobby}
               </span>
