@@ -9,7 +9,7 @@ interface IFiltersProps {
 }
 
 const Filters = ({ onMenuClick }: IFiltersProps) => {
-  const { filters, setSearch } = useFilters();
+  const { filters, setSearch, resetFilters } = useFilters();
   const [value, setValue] = useState(filters.search);
 
   useEffect(() => {
@@ -36,6 +36,19 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
           placeholder="Search by name..."
           className="flex-1 px-4 py-2 bg-surface border border-border rounded-lg text-text placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary"
         />
+        {(filters.search ||
+          filters.nationalities.length > 0 ||
+          filters.hobbies.length > 0) && (
+          <button
+            onClick={() => {
+              setValue("");
+              resetFilters();
+            }}
+            className="text-sm text-text-muted hover:text-text px-2 py-1 rounded hover:bg-surface-muted transition-colors"
+          >
+            Reset
+          </button>
+        )}
       </div>
       <SortControls />
     </div>

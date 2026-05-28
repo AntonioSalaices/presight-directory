@@ -13,6 +13,10 @@ export const useFilters = () => {
     sortDir: searchParams.get("sortDir") ?? "asc",
   };
 
+  const resetFilters = () => {
+    setSearchParams({});
+  };
+
   const setSearch = (search: string) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
@@ -81,5 +85,6 @@ export const useFilters = () => {
     toggleHobby,
     setSortBy,
     setSortDir,
+    resetFilters,
   };
 };
