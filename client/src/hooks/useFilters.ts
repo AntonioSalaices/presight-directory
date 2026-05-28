@@ -27,7 +27,7 @@ export const useFilters = () => {
 
   const toggleNationality = (nationality: string) => {
     setSearchParams((prev) => {
-      const next = new URLSearchParams("nationality");
+      const next = new URLSearchParams(prev);
       const current = prev.getAll("nationality");
       next.delete("nationality");
       if (current.includes(nationality)) {
