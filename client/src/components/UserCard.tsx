@@ -1,6 +1,4 @@
-import React from "react";
 import { IUser } from "../interfaces/users.interface";
-
 interface IUserCardProps {
   user: IUser;
 }

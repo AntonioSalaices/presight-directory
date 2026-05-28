@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+
 import { useFilters } from "../hooks/useFilters";
 import SortControls from "./SortControls";
 
-interface FiltersProps {
+interface IFiltersProps {
   onMenuClick: () => void;
 }
 const DEBOUNCE_MS = 300;
 
-export default function Filters({ onMenuClick }: FiltersProps) {
+export default function Filters({ onMenuClick }: IFiltersProps) {
   const { filters, setSearch } = useFilters();
   const [value, setValue] = useState(filters.search);
 

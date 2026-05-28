@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -33,7 +33,7 @@ const App = () => {
           <Sidebar />
         </div>
         <div className="flex-1 flex flex-col overflow-hidden">
-          <Filters onMenuClick={() => setSidebarOpen((o) => !o)} />
+          <Filters onMenuClick={() => setSidebarOpen((isOpen) => !isOpen)} />
           <UserList />
         </div>
       </div>

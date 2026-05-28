@@ -1,12 +1,5 @@
+import { SORT_FIELDS } from "../constants/filters.constants";
 import { useFilters } from "../hooks/useFilters";
-
-// TODO: Move to constants
-const SORT_FIELDS = [
-  { label: "First Name", value: "first_name" },
-  { label: "Last Name", value: "last_name" },
-  { label: "Age", value: "age" },
-  { label: "Nationality", value: "nationality" },
-];
 
 export default function SortControls() {
   const { filters, setSortBy, setSortDir } = useFilters();
