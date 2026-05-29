@@ -12,6 +12,7 @@ import {
   sanitizeSortField,
   toSortColumn,
 } from "../utils/query-validators";
+import { sortByValue } from "../utils/sort.utils";
 
 export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
   const {
@@ -127,7 +128,7 @@ export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
     })),
     total,
     hasMore: offset + limit < total,
-    hobbies: topHobbies,
-    nationalities: topNationalities,
+    hobbies: topHobbies.sort(sortByValue),
+    nationalities: topNationalities.sort(sortByValue),
   };
 };

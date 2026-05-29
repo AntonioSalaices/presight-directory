@@ -1,6 +1,5 @@
 import { useUsers } from "../hooks/useUsers";
 import { useFilters } from "../hooks/useFilters";
-import { sortByValue } from "../utils/sort.utils";
 import logo from "../assets/presight-logo.svg";
 import SidebarFilterSkeleton from "./SidebarFilterSkeleton";
 
@@ -9,8 +8,8 @@ const Sidebar = () => {
   const { data, isLoading, isPlaceholderData } = useUsers(filters);
 
   const showSkeleton = isLoading || isPlaceholderData;
-  const hobbies = (data?.pages[0]?.hobbies ?? []).sort(sortByValue);
-  const nationalities = (data?.pages[0]?.nationalities ?? []).sort(sortByValue);
+  const hobbies = data?.pages[0]?.hobbies ?? [];
+  const nationalities = data?.pages[0]?.nationalities ?? [];
 
   return (
     <aside className="w-64 h-screen overflow-y-auto border-r p-4 flex flex-col gap-6 bg-surface-card">
