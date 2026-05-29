@@ -21,7 +21,7 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
   }, [value]);
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center gap-2 p-4 border-b border-border bg-surface-card">
+    <div className="flex flex-col md:flex-row md:items-center gap-2 p-4 border-b border-line bg-surface-card">
       <div className="flex items-center gap-2 flex-1">
         <button
           onClick={onMenuClick}
@@ -34,7 +34,7 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Search by name..."
-          className="flex-1 px-4 py-2 bg-surface border border-border rounded-lg text-foreground placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-primary"
+          className="flex-1 px-4 py-2 bg-surface border border-line rounded-lg text-foreground placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-primary"
         />
         {(filters.search ||
           filters.nationalities.length > 0 ||

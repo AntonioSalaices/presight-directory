@@ -11,9 +11,8 @@
   --color-surface-card: #1e293b;
   --color-surface-muted: #334155;
 
-  /* borders */
-  --color-border: #1e293b;
-  --color-border-muted: #334155;
+  /* lines (borders, rings, dividers) */
+  --color-line: #1e293b;
 
   /* foreground */
   --color-foreground: #f1f5f9;

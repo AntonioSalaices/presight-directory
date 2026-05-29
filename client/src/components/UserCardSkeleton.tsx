@@ -1,6 +1,6 @@
 const UserCardSkeleton = () => {
   return (
-    <div className="flex items-start gap-3 p-4 border-b border-border animate-pulse">
+    <div className="flex items-start gap-3 p-4 border-b border-line animate-pulse">
       <div className="w-12 h-12 rounded-full bg-surface-muted" />
       <div className="flex-1 flex flex-col gap-2">
         <div className="h-4 bg-surface-muted rounded w-1/3" />
