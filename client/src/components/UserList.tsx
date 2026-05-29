@@ -65,7 +65,7 @@ const UserList = () => {
 
   if (!users.length) {
     return (
-      <div className="p-8 text-center text-text-muted">No users found</div>
+      <div className="p-8 text-center text-muted">No users found</div>
     );
   }
 

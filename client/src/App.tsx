@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex h-screen bg-surface overflow-hidden text-text">
+      <div className="flex h-screen bg-surface overflow-hidden text-foreground">
         {/* responsive */}
         {sidebarOpen && (
           <div

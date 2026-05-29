@@ -7,11 +7,11 @@ const SortControls = () => {
 
   return (
     <div className="flex items-center gap-2 p-4 border-b border-gray-200">
-      <span className="text-sm text-text-muted">Sort by</span>
+      <span className="text-sm text-muted">Sort by</span>
       <select
         value={filters.sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-        className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-text focus:outline-none focus:ring-2 focus:ring-primary"
+        className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
       >
         {SORT_FIELDS.map(({ label, value }) => (
           <option key={value} value={value}>
@@ -26,7 +26,7 @@ const SortControls = () => {
             filters.sortDir === ESortDir.ASC ? ESortDir.DESC : ESortDir.ASC,
           )
         }
-        className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-text hover:bg-surface-muted transition-colors"
+        className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-foreground hover:bg-surface-muted transition-colors"
       >
         {filters.sortDir === ESortDir.ASC ? "↑ Asc" : "↓ Desc"}
       </button>

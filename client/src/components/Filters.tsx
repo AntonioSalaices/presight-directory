@@ -25,7 +25,7 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
       <div className="flex items-center gap-2 flex-1">
         <button
           onClick={onMenuClick}
-          className="md:hidden text-text-muted hover:text-text p-1"
+          className="md:hidden text-muted hover:text-foreground p-1"
         >
           ☰
         </button>
@@ -34,7 +34,7 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Search by name..."
-          className="flex-1 px-4 py-2 bg-surface border border-border rounded-lg text-text placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary"
+          className="flex-1 px-4 py-2 bg-surface border border-border rounded-lg text-foreground placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-primary"
         />
         {(filters.search ||
           filters.nationalities.length > 0 ||
@@ -44,7 +44,7 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
               setValue("");
               resetFilters();
             }}
-            className="text-sm text-text-muted hover:text-text px-2 py-1 rounded hover:bg-surface-muted transition-colors"
+            className="text-sm text-muted hover:text-foreground px-2 py-1 rounded hover:bg-surface-muted transition-colors"
           >
             Reset
           </button>

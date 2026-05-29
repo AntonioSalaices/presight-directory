@@ -28,11 +28,11 @@ const Sidebar = () => {
                 className={`w-full flex justify-between items-center text-sm px-2 py-1 transition-colors rounded hover:bg-surface-muted ${
                   filters.nationalities.includes(value)
                     ? "bg-primary-light text-primary font-medium"
-                    : "text-text-muted"
+                    : "text-muted"
                 }`}
               >
                 <span className="capitalize">{value}</span>
-                <span className="text-text-muted">{count}</span>
+                <span className="text-muted">{count}</span>
               </button>
             </li>
           ))}
@@ -51,11 +51,11 @@ const Sidebar = () => {
                 className={`w-full flex justify-between items-center text-sm px-2 py-1 rounded transition-colors  hover:bg-surface-muted ${
                   filters.hobbies.includes(value)
                     ? "bg-primary-light text-primary font-medium"
-                    : "text-text-muted"
+                    : "text-muted"
                 }`}
               >
                 <span className="capitalize">{value}</span>
-                <span className="text-text-muted">{count}</span>
+                <span className="text-muted">{count}</span>
               </button>
             </li>
           ))}

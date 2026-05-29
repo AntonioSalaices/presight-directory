@@ -15,11 +15,11 @@ const UserCard = ({ user }: IUserCardProps) => {
       />
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
-          <span className="font-medium text-text truncate">
+          <span className="font-medium text-foreground truncate">
             {user.firstName} {user.lastName}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-text-muted">
+        <div className="flex items-center gap-2 text-sm text-muted">
           <span>{user.nationality}</span>
           <span>·</span>
           <span>{user.age}</span>
@@ -29,7 +29,7 @@ const UserCard = ({ user }: IUserCardProps) => {
             {visibleHobbies.map((hobby) => (
               <span
                 key={hobby}
-                className="text-xs bg-surface px-2 py-0.5 rounded-full text-text-muted border border-border"
+                className="text-xs bg-surface px-2 py-0.5 rounded-full text-muted border border-border"
               >
                 {hobby}
               </span>
@@ -40,7 +40,7 @@ const UserCard = ({ user }: IUserCardProps) => {
                   +{remainingHobbies}
                 </span>
                 <div className="absolute bottom-full left-0 mb-1 hidden group-hover:block z-10">
-                  <div className="bg-surface-card border border-border rounded px-2 py-1 text-xs text-text-muted whitespace-nowrap shadow-lg">
+                  <div className="bg-surface-card border border-border rounded px-2 py-1 text-xs text-muted whitespace-nowrap shadow-lg">
                     {user.hobbies.slice(2).join(", ")}
                   </div>
                 </div>

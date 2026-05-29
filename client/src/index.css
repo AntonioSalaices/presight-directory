@@ -15,8 +15,8 @@
   --color-border: #1e293b;
   --color-border-muted: #334155;
 
-  /* text */
-  --color-text: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-text-subtle: #475569;
+  /* foreground */
+  --color-foreground: #f1f5f9;
+  --color-muted: #94a3b8;
+  --color-subtle: #475569;
 }
