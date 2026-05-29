@@ -29,8 +29,9 @@ const UserList = () => {
   });
 
   useEffect(() => {
-    // TODO Check this
-    const lastItem = virtualizer.getVirtualItems().at(-1);
+    const items = virtualizer.getVirtualItems();
+    const lastItem = items[items.length - 1];
+
     if (!lastItem) return;
     if (
       lastItem.index >= users.length - 1 &&
@@ -64,9 +65,7 @@ const UserList = () => {
   }
 
   if (!users.length) {
-    return (
-      <div className="p-8 text-center text-muted">No users found</div>
-    );
+    return <div className="p-8 text-center text-muted">No users found</div>;
   }
 
   return (
