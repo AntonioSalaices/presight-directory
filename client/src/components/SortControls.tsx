@@ -21,7 +21,11 @@ const SortControls = () => {
       </select>
 
       <button
-        onClick={() => setSortDir(filters.sortDir === "asc" ? "desc" : "asc")}
+        onClick={() =>
+          setSortDir(
+            filters.sortDir === ESortDir.ASC ? ESortDir.DESC : ESortDir.ASC,
+          )
+        }
         className="text-sm rounded-lg  bg-surface border border-border px-2 py-1 text-text hover:bg-surface-muted transition-colors"
       >
         {filters.sortDir === ESortDir.ASC ? "↑ Asc" : "↓ Desc"}
