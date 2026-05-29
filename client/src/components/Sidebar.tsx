@@ -31,7 +31,7 @@ const Sidebar = () => {
                 <button
                   type="button"
                   onClick={() => toggleNationality(value)}
-                  className={`w-full flex justify-between items-center text-sm px-2 py-1 transition-colors rounded hover:bg-surface-muted ${
+                  className={`w-full cursor-pointer flex justify-between items-center text-sm px-2 py-1 transition-colors rounded hover:bg-surface-muted ${
                     filters.nationalities.includes(value)
                       ? "bg-primary-light text-primary font-medium"
                       : "text-muted"
@@ -59,7 +59,7 @@ const Sidebar = () => {
                 <button
                   type="button"
                   onClick={() => toggleHobby(value)}
-                  className={`w-full flex justify-between items-center text-sm px-2 py-1 rounded transition-colors hover:bg-surface-muted ${
+                  className={`w-full cursor-pointer flex justify-between items-center text-sm px-2 py-1 rounded transition-colors hover:bg-surface-muted ${
                     filters.hobbies.includes(value)
                       ? "bg-primary-light text-primary font-medium"
                       : "text-muted"

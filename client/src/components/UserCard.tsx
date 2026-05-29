@@ -53,7 +53,7 @@ const UserCard = ({ user, onHobbiesToggle }: IUserCardProps) => {
               {visibleHobbies.map((hobby) => (
                 <span
                   key={hobby}
-                  className="text-xs bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
+                  className="text-xs capitalize bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
                 >
                   {hobby}
                 </span>
@@ -68,7 +68,7 @@ const UserCard = ({ user, onHobbiesToggle }: IUserCardProps) => {
                       ? "Hide additional hobbies"
                       : `Show ${remainingHobbies} more hobbies`
                   }
-                  className={`text-xs text-primary rounded px-1 -mx-1 hover:bg-surface-muted transition-colors ${
+                  className={`text-xs cursor-pointer text-primary rounded px-1 -mx-1 hover:bg-surface-muted transition-colors ${
                     showRemainingHobbies ? "font-medium underline" : ""
                   }`}
                 >
@@ -81,7 +81,7 @@ const UserCard = ({ user, onHobbiesToggle }: IUserCardProps) => {
                 {extraHobbies.map((hobby) => (
                   <span
                     key={hobby}
-                    className="text-xs bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
+                    className="text-xs capitalize bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
                   >
                     {hobby}
                   </span>

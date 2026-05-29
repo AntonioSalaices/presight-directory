@@ -48,7 +48,7 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
               setValue("");
               resetFilters();
             }}
-            className="text-sm text-muted hover:text-foreground px-2 py-1 rounded hover:bg-surface-muted transition-colors"
+            className="text-sm cursor-pointer text-muted hover:text-foreground px-2 py-1 rounded hover:bg-surface-muted transition-colors"
           >
             Reset
           </button>
