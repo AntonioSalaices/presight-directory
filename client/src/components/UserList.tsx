@@ -29,6 +29,7 @@ const UserList = () => {
   });
 
   useEffect(() => {
+    // TODO Check this
     const lastItem = virtualizer.getVirtualItems().at(-1);
     if (!lastItem) return;
     if (

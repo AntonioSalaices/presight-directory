@@ -1,17 +1,17 @@
 import { useSearchParams } from "react-router-dom";
 
 import { IFilters } from "../interfaces/users.interface";
-import { ESortDir } from "../enums/filters.enum";
+import { ESearchParam, ESortBy, ESortDir } from "../enums/filters.enum";
 
 export const useFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filters: IFilters = {
-    search: searchParams.get("search") ?? "",
-    nationalities: searchParams.getAll("nationality"),
-    hobbies: searchParams.getAll("hobby"),
-    sortBy: searchParams.get("sortBy") ?? "first_name",
-    sortDir: searchParams.get("sortDir") ?? ESortDir.ASC,
+    search: searchParams.get(ESearchParam.SEARCH) ?? "",
+    nationalities: searchParams.getAll(ESearchParam.NATIONALITY),
+    hobbies: searchParams.getAll(ESearchParam.HOBBY),
+    sortBy: searchParams.get(ESearchParam.SORT_BY) ?? ESortBy.FIRST_NAME,
+    sortDir: searchParams.get(ESearchParam.SORT_DIR) ?? ESortDir.ASC,
   };
 
   const resetFilters = () => {
@@ -22,9 +22,9 @@ export const useFilters = () => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       if (search) {
-        next.set("search", search);
+        next.set(ESearchParam.SEARCH, search);
       } else {
-        next.delete("search");
+        next.delete(ESearchParam.SEARCH);
       }
       return next;
     });
@@ -33,14 +33,16 @@ export const useFilters = () => {
   const toggleNationality = (nationality: string) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      const current = prev.getAll("nationality");
-      next.delete("nationality");
+      const current = prev.getAll(ESearchParam.NATIONALITY);
+      next.delete(ESearchParam.NATIONALITY);
       if (current.includes(nationality)) {
         current
           .filter((n) => n !== nationality)
-          .forEach((n) => next.append("nationality", n));
+          .forEach((n) => next.append(ESearchParam.NATIONALITY, n));
       } else {
-        [...current, nationality].forEach((n) => next.append("nationality", n));
+        [...current, nationality].forEach((n) =>
+          next.append(ESearchParam.NATIONALITY, n),
+        );
       }
 
       return next;
@@ -50,14 +52,14 @@ export const useFilters = () => {
   const toggleHobby = (hobby: string) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      const current = prev.getAll("hobby");
-      next.delete("hobby");
+      const current = prev.getAll(ESearchParam.HOBBY);
+      next.delete(ESearchParam.HOBBY);
       if (current.includes(hobby)) {
         current
           .filter((h) => h !== hobby)
-          .forEach((h) => next.append("hobby", h));
+          .forEach((h) => next.append(ESearchParam.HOBBY, h));
       } else {
-        [...current, hobby].forEach((h) => next.append("hobby", h));
+        [...current, hobby].forEach((h) => next.append(ESearchParam.HOBBY, h));
       }
       return next;
     });
@@ -66,7 +68,7 @@ export const useFilters = () => {
   const setSortBy = (sortBy: string) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      next.set("sortBy", sortBy);
+      next.set(ESearchParam.SORT_BY, sortBy);
       return next;
     });
   };
@@ -74,7 +76,7 @@ export const useFilters = () => {
   const setSortDir = (sortDir: string) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      next.set("sortDir", sortDir);
+      next.set(ESearchParam.SORT_DIR, sortDir);
       return next;
     });
   };

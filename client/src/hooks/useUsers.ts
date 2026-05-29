@@ -1,4 +1,5 @@
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+
 import { fetchUsers } from "../api/users";
 import { IFilters } from "../interfaces/users.interface";
 
