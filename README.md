@@ -1,119 +1,106 @@
-# Presight Frontend Exercise
+# Presight Directory
 
-Build a small full-stack user directory application. The goal is to evaluate how you design a searchable, filterable, paginated UI backed by persisted data and clear API boundaries.
+A full-stack user directory with search, filtering, and infinite scroll.
 
-The application should include:
+## Tech Stack
 
-- A React client.
-- A Node.js API server.
-- A SQLite database used as the source of truth for user data.
-- Docker configuration for running the application locally.
+**Client:** React, TypeScript, TanStack Query, TanStack Virtual, Tailwind CSS
 
-## Scenario
+**Server:** Node.js, Express, TypeScript, SQLite (better-sqlite3)
 
-Users need to browse a large directory of people, search by name, and narrow results by nationality and hobbies. The filter sidebar should help users discover useful filters based on the result set they are currently viewing.
+**Infrastructure:** Docker, Docker Compose, Nginx
 
-## Requirements
+## Project Structure
 
-### Data Model
+\`\`\`
+presight-directory/
+client/ # React app
+server/ # Express API
+docker-compose.yml
+\`\`\`
 
-Seed a SQLite database with enough records to make pagination, infinite scroll, search, and filter counts meaningful.
+## Prerequisites
 
-Each user should have:
+- Node.js 20+
+- Yarn
+- Docker & Docker Compose (for Docker setup)
 
-- `avatar`
-- `first_name`
-- `last_name`
-- `age`
-- `nationality`
-- `hobbies`, from 0 to 10 hobbies per user
+## Design Decisions
 
-Choose a data model that supports the required behavior.
+- **SQLite + better-sqlite3** — synchronous driver chosen for simplicity and performance at this scale
+- **Virtual scroll** — renders only visible items for smooth performance with large datasets
+- **URL-based state** — all filters and sort are reflected in the URL, enabling shareable and bookmarkable views
+- **AND logic for hobbies** — users must have all selected hobbies, not just any
+- **OR logic for nationalities** — users from any selected nationality are included
+- **Sidebar counts** — top 20 hobbies and nationalities reflect active filters, not the global dataset
+- **Rate limiting** — 100 requests per 15 minutes per IP
+- **Centralized error handling** — all errors are caught and returned with consistent structure
 
-SQLite must be the persisted source of user data.
+## Getting Started (Local)
 
-### API
+Install dependencies from the root:
+\`\`\`bash
+yarn install
+\`\`\`
 
-Expose an API that supports:
+Seed the database:
+\`\`\`bash
+yarn workspace server seed
+\`\`\`
 
-- Paginated user results.
-- Text filtering from user input across `first_name` and `last_name`.
-- Filtering by one or more nationalities.
-- Filtering by one or more hobbies.
-- Sorting by `first_name`, `last_name`, `age`, and `nationality`.
-- Pagination metadata so the client can determine whether more results are available.
-- Top 20 hobbies for the active text filter and filter state, including `{ value, count }`.
-- Top 20 nationalities for the active text filter and filter state, including `{ value, count }`.
+Start both client and server:
+\`\`\`bash
+yarn dev
+\`\`\`
 
-The top 20 values and counts must reflect the currently applied text filter and selected filters, not the global dataset.
+- Client: http://localhost:5173
+- API: http://localhost:3000
 
-Filter semantics:
+## Getting Started (Docker)
 
-- Multiple selected hobbies should match users who have all selected hobbies.
-- Multiple selected nationalities should match users from any selected nationality.
-- Text, hobby, and nationality filters should apply together.
+\`\`\`bash
+docker compose up --build
+\`\`\`
 
-Sorting semantics:
+The database is seeded automatically on first run.
 
-- Sorted results must be deterministic. Use `id` as a final tie-breaker when values are equal.
-- Pagination must respect the active sort without duplicate or missing users.
+- Client: http://localhost:80
+- API: http://localhost:3000
 
-### Client
+## API Reference
 
-Build a React interface that includes:
+### GET /api/users
 
-- A text filter input for `first_name` and `last_name`.
-- A virtualized, infinitely scrolling list of user cards.
-- A sidebar containing the top 20 hobbies and top 20 nationalities for the current result set, including counts.
-- Controls for applying and removing hobby and nationality filters.
-- Controls for choosing sort field and sort direction.
-- Loading, empty, and error states.
-- A responsive layout that remains usable on desktop and mobile.
+Returns a paginated list of users with filter options.
 
-User cards should follow this structure:
+| Param       | Type     | Description                                                |
+| ----------- | -------- | ---------------------------------------------------------- |
+| search      | string   | Filter by first or last name                               |
+| nationality | string[] | Filter by nationality (OR)                                 |
+| hobby       | string[] | Filter by hobby (AND)                                      |
+| sortBy      | string   | Field to sort by (first_name, last_name, age, nationality) |
+| sortDir     | string   | Sort direction (asc, desc)                                 |
+| page        | number   | Page number (default: 1)                                   |
+| limit       | number   | Results per page (default: 20)                             |
 
-```text
-|----------------------------------|
-| avatar      first_name+last_name |
-|             nationality      age |
-|                                  |
-|             (2 hobbies) (+n)     |
-|----------------------------------|
-```
+**Response:**
+\`\`\`json
+{
+"data": [...],
+"total": 1000,
+"hasMore": true,
+"hobbies": [{ "value": "coding", "count": 120 }],
+"nationalities": [{ "value": "Mexican", "count": 65 }]
+}
+\`\`\`
 
-Show up to 2 hobbies on the card. If the user has more hobbies, display the remaining count as `+n`.
+## Features
 
-Use a virtual scroll implementation for the list.
-
-When the text filter or selected filters change, the client must refresh both:
-
-- The paginated user list.
-- The top 20 hobbies and nationalities in the sidebar.
-
-The text filter value, selected hobbies, selected nationalities, sort field, and sort direction must be reflected in the URL query string. Reloading or sharing the URL should restore the same view state.
-
-## Implementation Notes
-
-- Keep the database setup easy to run locally.
-- Include seed logic or a documented command that creates the SQLite database.
-- Include a `Dockerfile` and `docker-compose.yml` that can run the application locally.
-
-## Evaluation Focus
-
-We will pay particular attention to:
-
-- Correct data persistence and API behavior.
-- Correct filtering, sorting, pagination, and top 20 counts.
-- Smooth infinite scrolling with virtualization.
-- URL-synced state.
-- Clear loading, empty, and error states.
-- Easy local and Docker-based setup.
-
-## Deliverables
-
-Please provide:
-
-- Source code for the React client and Node.js server.
-- A `Dockerfile` and `docker-compose.yml`.
-- Instructions for setup, database seeding, and running locally.
-- Instructions for running with Docker Compose.
+- Virtual scroll + infinite scroll
+- Search by first and last name with debounce
+- Filter by nationality (OR logic)
+- Filter by hobbies (AND logic)
+- Sort by name, age, or nationality
+- URL-based state — filters persist on reload
+- Responsive layout
+- Dark theme based on Presight brand
