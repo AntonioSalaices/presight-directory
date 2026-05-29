@@ -2,7 +2,7 @@ import path from "path";
 
 import Database from "better-sqlite3";
 
-const db = new Database(path.join(__dirname, "../../presight.db"));
+const db = new Database(path.join(__dirname, "../presight.db"));
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
