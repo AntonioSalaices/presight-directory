@@ -51,6 +51,28 @@ yarn dev
 - Client: http://localhost:5173
 - API: http://localhost:3000
 
+### Environment variables (local)
+
+Defaults match local dev out of the box; override only when you need different ports, CORS, rate limits, or API URL.
+
+**Server** — reference: `server/src/.env.example`. Node does not load a `.env` file automatically; export variables in your shell before starting the server, or rely on the built-in fallbacks below.
+
+| Variable               | Default                 | Description                           |
+| ---------------------- | ----------------------- | ------------------------------------- |
+| `PORT`                 | `3000`                  | API listen port                       |
+| `CLIENT_URL`           | `http://localhost:5173` | Allowed CORS origin (Vite dev server) |
+| `NODE_ENV`             | —                       | Optional; not read by app logic today |
+| `RATE_LIMIT_WINDOW_MS` | `900000`                | Rate-limit window (15 minutes)        |
+| `RATE_LIMIT_MAX`       | `100`                   | Max requests per IP per window        |
+
+**Client** — copy `client/.env.example` to `client/.env`. Vite loads it on `yarn dev` and bakes `VITE_*` values in at build time.
+
+| Variable            | Default | Description                   |
+| ------------------- | ------- | ----------------------------- |
+| `VITE_API_BASE_URL` | `/api`  | API base path or absolute URL |
+
+Use `/api` for local dev and Docker: Vite (dev) and Nginx (Docker) proxy `/api` to the backend. Use an absolute URL only if the API is on another host (no proxy); rebuild the client image after changing `VITE_*` in Docker.
+
 ## Getting Started (Docker)
 
 \`\`\`bash
@@ -61,6 +83,8 @@ The database is seeded automatically on first run.
 
 - Client: http://localhost:80
 - API: http://localhost:3000
+
+Server env vars are set in `docker-compose.yml` (`CLIENT_URL=http://localhost:80`, rate limits, etc.). The client build uses `VITE_API_BASE_URL=/api` by default (relative path via Nginx proxy).
 
 ## API Reference
 

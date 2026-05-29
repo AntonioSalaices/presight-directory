@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: "/api",
+  baseUrl: import.meta.env.VITE_API_BASE_URL ?? "/api",
 } as const;
