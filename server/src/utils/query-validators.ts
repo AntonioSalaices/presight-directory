@@ -9,6 +9,16 @@ export const ALLOWED_SORT_FIELDS = [
 ] as const;
 export const ALLOWED_SORT_DIRS = [ESortDir.ASC, ESortDir.DESC] as const;
 
+const SORT_FIELD_COLUMNS: Record<ISortField, string> = {
+  [EUserFields.FIRST_NAME]: "first_name",
+  [EUserFields.LAST_NAME]: "last_name",
+  [EUserFields.AGE]: "age",
+  [EUserFields.NATIONALITY]: "nationality",
+};
+
+export const toSortColumn = (field: ISortField): string =>
+  SORT_FIELD_COLUMNS[field];
+
 const isValidSortField = (value: string): value is ISortField => {
   return ALLOWED_SORT_FIELDS.includes(value as ISortField);
 };

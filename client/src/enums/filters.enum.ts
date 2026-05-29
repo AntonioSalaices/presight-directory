@@ -1,6 +1,6 @@
 export enum ESortBy {
-  FIRST_NAME = "first_name",
-  LAST_NAME = "last_name",
+  FIRST_NAME = "firstName",
+  LAST_NAME = "lastName",
   AGE = "age",
   NATIONALITY = "nationality",
 }

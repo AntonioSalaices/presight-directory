@@ -4,8 +4,8 @@ import { IFilterOption } from "./filters.interface";
 interface IUserBase {
   id: number;
   avatar: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   age: number;
   nationality: string;
 }
@@ -13,8 +13,13 @@ export interface IUser extends IUserBase {
   hobbies: string[];
 }
 
-// comes from query/url
-export interface IUserRequest extends IUserBase {
+export interface IUserRow {
+  id: number;
+  avatar: string;
+  first_name: string;
+  last_name: string;
+  age: number;
+  nationality: string;
   hobbies: string;
 }
 

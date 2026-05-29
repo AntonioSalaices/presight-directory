@@ -3,11 +3,15 @@ import { ESortDir, EUserFields } from "../enums/filters.enum";
 import { IFilterOption } from "../interfaces/filters.interface";
 import {
   ITotal,
-  IUserRequest,
+  IUserRow,
   IUsersQueryParsed,
   IUsersResponse,
 } from "../interfaces/users.interface";
-import { sanitizeSortDir, sanitizeSortField } from "../utils/query-validators";
+import {
+  sanitizeSortDir,
+  sanitizeSortField,
+  toSortColumn,
+} from "../utils/query-validators";
 
 export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
   const {
@@ -55,7 +59,8 @@ export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
   const safeSortBy = sanitizeSortField(sortBy);
   const safeSortDir = sanitizeSortDir(sortDir);
 
-  const orderBy = `ORDER BY u.${safeSortBy} ${safeSortDir}, u.id ${ESortDir.ASC}`;
+  const sortColumn = toSortColumn(safeSortBy);
+  const orderBy = `ORDER BY u.${sortColumn} ${safeSortDir}, u.id ${ESortDir.ASC}`;
 
   const users = db
     .prepare(
@@ -69,7 +74,7 @@ export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
         LIMIT ? OFFSET ?
       `,
     )
-    .all([...params, limit, offset]) as IUserRequest[];
+    .all([...params, limit, offset]) as IUserRow[];
 
   const { total } = db
     .prepare(
@@ -110,7 +115,12 @@ export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
 
   return {
     data: users.map((u) => ({
-      ...u,
+      id: u.id,
+      avatar: u.avatar,
+      firstName: u.first_name,
+      lastName: u.last_name,
+      age: u.age,
+      nationality: u.nationality,
       hobbies: u.hobbies ? u.hobbies.split(",") : [],
     })),
     total,

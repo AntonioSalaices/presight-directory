@@ -14,8 +14,8 @@ export interface IFilterOption {
 export interface IUser {
   id: number;
   avatar: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   age: number;
   nationality: string;
   hobbies: string[];

@@ -10,13 +10,13 @@ const UserCard = ({ user }: IUserCardProps) => {
     <div className="flex items-start gap-3 p-4 border-b border-border hover:bg-surface-muted transition-colors">
       <img
         src={user.avatar}
-        alt={`{user.first_name}{user.last_name}`}
+        alt={`${user.firstName} ${user.lastName}`}
         className="w-12 h-12 rounded-full object-cover ring-2 ring-border"
       />
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
           <span className="font-medium text-text truncate">
-            {user.first_name} {user.last_name}
+            {user.firstName} {user.lastName}
           </span>
         </div>
         <div className="flex items-center gap-2 text-sm text-text-muted">
