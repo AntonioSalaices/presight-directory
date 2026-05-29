@@ -6,7 +6,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
       - PORT=3000
       - CLIENT_URL=http://localhost:80
       - RATE_LIMIT_WINDOW_MS=900000

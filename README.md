@@ -61,7 +61,6 @@ Defaults match local dev out of the box; override only when you need different p
 | ---------------------- | ----------------------- | ------------------------------------- |
 | `PORT`                 | `3000`                  | API listen port                       |
 | `CLIENT_URL`           | `http://localhost:5173` | Allowed CORS origin (Vite dev server) |
-| `NODE_ENV`             | —                       | Optional; not read by app logic today |
 | `RATE_LIMIT_WINDOW_MS` | `900000`                | Rate-limit window (15 minutes)        |
 | `RATE_LIMIT_MAX`       | `100`                   | Max requests per IP per window        |
 
