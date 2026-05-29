@@ -32,7 +32,9 @@ export const getUsers = (query: IUsersQueryParsed): IUsersResponse => {
   const params: unknown[] = [];
 
   if (search) {
-    conditions.push(`(u.first_name LIKE ? OR u.last_name LIKE ?)`);
+    conditions.push(
+      `(LOWER(u.first_name) LIKE LOWER(?) OR LOWER(u.last_name) LIKE LOWER(?))`,
+    );
     params.push(`%${search}%`, `%${search}%`);
   }
 
