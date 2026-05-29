@@ -20,6 +20,10 @@ const Filters = ({ onMenuClick }: IFiltersProps) => {
     return () => clearTimeout(timer);
   }, [value]);
 
+  useEffect(() => {
+    setValue(filters.search);
+  }, [filters.search]);
+
   return (
     <div className="flex flex-col md:flex-row md:items-center gap-2 p-4 border-b border-line bg-surface-card">
       <div className="flex items-center gap-2 flex-1">
