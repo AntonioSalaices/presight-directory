@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { IUser } from "../interfaces/users.interface";
 interface IUserCardProps {
   user: IUser;
+  onHobbiesToggle?: () => void;
 }
-const UserCard = ({ user }: IUserCardProps) => {
+
+const UserCard = ({ user, onHobbiesToggle }: IUserCardProps) => {
   const [imgError, setImgError] = useState(false);
+  const [showRemainingHobbies, setShowRemainingHobbies] = useState(false);
 
   const visibleHobbies = user.hobbies.slice(0, 2);
-  const remainingHobbies = user.hobbies.length - visibleHobbies.length;
+  const extraHobbies = user.hobbies.slice(2);
+  const remainingHobbies = extraHobbies.length;
+
+  const onHobbiesToggleRef = useRef(onHobbiesToggle);
+  onHobbiesToggleRef.current = onHobbiesToggle;
+
+  useEffect(() => {
+    onHobbiesToggleRef.current?.();
+  }, [showRemainingHobbies]);
 
   return (
     <div className="flex items-start gap-3 p-4 border-b border-line hover:bg-surface-muted transition-colors">
@@ -37,25 +48,44 @@ const UserCard = ({ user }: IUserCardProps) => {
           <span>{user.age}</span>
         </div>
         {user.hobbies.length > 0 && (
-          <div className="flex gap-1 mt-1 flex-wrap">
-            {visibleHobbies.map((hobby) => (
-              <span
-                key={hobby}
-                className="text-xs bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
-              >
-                {hobby}
-              </span>
-            ))}
-            {remainingHobbies > 0 && (
-              <div className="relative group">
-                <span className="text-xs text-primary cursor-default">
-                  +{remainingHobbies}
+          <div className="mt-1">
+            <div className="flex flex-wrap gap-1">
+              {visibleHobbies.map((hobby) => (
+                <span
+                  key={hobby}
+                  className="text-xs bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
+                >
+                  {hobby}
                 </span>
-                <div className="absolute bottom-full left-0 mb-1 hidden group-hover:block z-10">
-                  <div className="bg-surface-card border border-line rounded px-2 py-1 text-xs text-muted whitespace-nowrap shadow-lg">
-                    {user.hobbies.slice(2).join(", ")}
-                  </div>
-                </div>
+              ))}
+              {remainingHobbies > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowRemainingHobbies((open) => !open)}
+                  aria-expanded={showRemainingHobbies}
+                  aria-label={
+                    showRemainingHobbies
+                      ? "Hide additional hobbies"
+                      : `Show ${remainingHobbies} more hobbies`
+                  }
+                  className={`text-xs text-primary rounded px-1 -mx-1 hover:bg-surface-muted transition-colors ${
+                    showRemainingHobbies ? "font-medium underline" : ""
+                  }`}
+                >
+                  +{remainingHobbies}
+                </button>
+              )}
+            </div>
+            {showRemainingHobbies && remainingHobbies > 0 && (
+              <div className="mt-1 flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                {extraHobbies.map((hobby) => (
+                  <span
+                    key={hobby}
+                    className="text-xs bg-surface px-2 py-0.5 rounded-full text-muted border border-line"
+                  >
+                    {hobby}
+                  </span>
+                ))}
               </div>
             )}
           </div>

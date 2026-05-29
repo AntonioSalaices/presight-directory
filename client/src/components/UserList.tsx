@@ -26,7 +26,19 @@ const UserList = () => {
     getScrollElement: () => parentRef.current,
     estimateSize: () => 100,
     overscan: 5,
+    measureElement: (element) => element.getBoundingClientRect().height,
   });
+
+  const remeasureRow = (index: number) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const row = parentRef.current?.querySelector<HTMLElement>(
+          `[data-index="${index}"]`,
+        );
+        if (row) virtualizer.measureElement(row);
+      });
+    });
+  };
 
   useEffect(() => {
     const virtualItems = virtualizer.getVirtualItems();
@@ -84,6 +96,8 @@ const UserList = () => {
           return (
             <div
               key={virtualItem.key}
+              data-index={virtualItem.index}
+              ref={virtualizer.measureElement}
               style={{
                 position: "absolute",
                 top: 0,
@@ -92,7 +106,14 @@ const UserList = () => {
                 transform: `translateY(${virtualItem.start}px)`,
               }}
             >
-              {user ? <UserCard user={user} /> : <UserCardSkeleton />}
+              {user ? (
+                <UserCard
+                  user={user}
+                  onHobbiesToggle={() => remeasureRow(virtualItem.index)}
+                />
+              ) : (
+                <UserCardSkeleton />
+              )}
             </div>
           );
         })}
