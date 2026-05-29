@@ -45,7 +45,7 @@ yarn install
 
 Seed the database:
 \`\`\`bash
-yarn workspace server seed
+yarn workspace presight-server seed
 \`\`\`
 
 Start both client and server:
