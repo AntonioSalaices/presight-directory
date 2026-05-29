@@ -43,12 +43,7 @@ Install dependencies from the root:
 yarn install
 \`\`\`
 
-Seed the database:
-\`\`\`bash
-yarn workspace presight-server seed
-\`\`\`
-
-Start both client and server:
+Start both client and server (the API seeds the database automatically on first run):
 \`\`\`bash
 yarn dev
 \`\`\`
