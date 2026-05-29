@@ -29,10 +29,11 @@ const UserList = () => {
   });
 
   useEffect(() => {
-    const items = virtualizer.getVirtualItems();
-    const lastItem = items[items.length - 1];
+    const virtualItems = virtualizer.getVirtualItems();
+    if (!virtualItems.length) return;
 
-    if (!lastItem) return;
+    const lastItem = virtualItems[virtualItems.length - 1];
+
     if (
       lastItem.index >= users.length - 1 &&
       hasNextPage &&
@@ -46,6 +47,8 @@ const UserList = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
+    fetchNextPage,
+    users.length,
   ]);
 
   if (isLoading) {
