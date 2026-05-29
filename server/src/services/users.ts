@@ -4,7 +4,6 @@ import { IFilterOption } from "../interfaces/filters.interface";
 import {
   ITotal,
   IUserRequest,
-  IUsersQuery,
   IUsersQueryParsed,
   IUsersResponse,
 } from "../interfaces/users.interface";
