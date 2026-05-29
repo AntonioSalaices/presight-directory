@@ -1,9 +1,12 @@
 import rateLimit from "express-rate-limit";
 import { EErrorCode, EErrorMessage } from "../enums/errors.enum";
 
+const windowMs = Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 100;
+const max = Number(process.env.RATE_LIMIT_MAX) || 100;
+
 export const rateLimitMiddleware = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 1000,
+  windowMs,
+  max,
   standardHeaders: true,
   legacyHeaders: false,
   message: {

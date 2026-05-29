@@ -9,6 +9,8 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - CLIENT_URL=http://localhost:80
+      - RATE_LIMIT_WINDOW_MS=900000
+      - RATE_LIMIT_MAX=100
     volumes:
       - ./server/presight.db:/app/server/presight.db
 

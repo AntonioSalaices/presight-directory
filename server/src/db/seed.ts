@@ -58,7 +58,6 @@ if (hasData) {
   process.exit(0);
 }
 
-//Insert data
 const insertUser = db.prepare(
   `INSERT INTO users (avatar, first_name, last_name, age, nationality)
    VALUES (?, ?, ?, ?, ?) 
