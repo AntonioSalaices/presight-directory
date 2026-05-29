@@ -1,18 +1,30 @@
+import { useState } from "react";
+
 import { IUser } from "../interfaces/users.interface";
 interface IUserCardProps {
   user: IUser;
 }
 const UserCard = ({ user }: IUserCardProps) => {
+  const [imgError, setImgError] = useState(false);
+
   const visibleHobbies = user.hobbies.slice(0, 2);
   const remainingHobbies = user.hobbies.length - visibleHobbies.length;
 
   return (
     <div className="flex items-start gap-3 p-4 border-b border-line hover:bg-surface-muted transition-colors">
-      <img
-        src={user.avatar}
-        alt={`${user.firstName} ${user.lastName}`}
-        className="w-12 h-12 rounded-full object-cover ring-2 ring-line"
-      />
+      {imgError || !user.avatar ? (
+        <div className="w-12 h-12 rounded-full ring-2 ring-border bg-surface-muted flex items-center justify-center text-text-muted font-medium text-sm">
+          {user.firstName[0]}
+          {user.lastName[0]}
+        </div>
+      ) : (
+        <img
+          src={user.avatar}
+          alt={`${user.firstName} ${user.lastName}`}
+          className="w-12 h-12 rounded-full object-cover ring-2 ring-line"
+          onError={() => setImgError(true)}
+        />
+      )}
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
           <span className="font-medium text-foreground truncate">
